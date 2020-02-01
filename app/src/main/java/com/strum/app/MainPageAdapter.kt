@@ -1,9 +1,12 @@
 package com.strum.app
 
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.pageritem.view.*
 
@@ -22,9 +25,22 @@ class MainPageAdapter(val models: List<MainScreenModel>, val context: Context): 
         var view: View = layoutInflater.inflate(R.layout.pageritem, container, false)
 
         view.mainPagerItemTitle.text = models[position].title
+
+        if(models[position].title.equals("Personal")){
+            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context, R.color.personalColor))
+            view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.personalColor),PorterDuff.Mode.MULTIPLY)
+        }
+
+        else{
+            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context, R.color.workColor))
+            view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.workColor),PorterDuff.Mode.MULTIPLY)
+        }
+
         view.mainPagerItemIcn.setImageResource(models[position].imgId)
         view.mainPagerItemPgBar.setProgress(models[position].progress)
         view.mainPagerItemSubtitle.text = models[position].subTitle
+
+        container.addView(view)
 
         return view
     }

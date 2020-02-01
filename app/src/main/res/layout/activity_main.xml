@@ -57,7 +57,7 @@
             android:layout_below="@id/profilePic"
             android:layout_marginStart="40dp"
             android:layout_marginTop="20dp"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:id="@+id/greetingsFname"
             android:layout_marginEnd="40dp"
             android:fontFamily="@font/ubuntu_reg"
@@ -70,7 +70,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="40dp"
             android:fontFamily="@font/mons_reg"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:id="@+id/mainCompletedTasksTv"
             android:textColor="@android:color/white"
             android:text="23 Tasks Completed"
@@ -79,30 +79,30 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/secDivMain"
         android:layout_height="match_parent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginStart="40dp"
             android:id="@+id/todayDate"
             android:fontFamily="@font/ubuntu_reg"
             android:textColor="@android:color/white"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:text="Today: January 29, 2020"/>
 
         <androidx.viewpager.widget.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             android:id="@+id/mainViewPager"
             android:overScrollMode="never"
             android:clipToPadding="false"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/todayDate"/>
 
     </RelativeLayout>

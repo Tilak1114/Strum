@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         mainCompletedTasksTv.text = completedTasks
 
-        models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, 60))
-        models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_personal, 90))
+        models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, 20))
+        models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_work, 90))
 
         var adapter =  MainPageAdapter(models, applicationContext)
 
         mainViewPager.adapter = adapter
-        mainViewPager.setPadding(100, 0, 100, 0)
+        mainViewPager.setPadding(0, 0, 100, 0)
     }
 }
