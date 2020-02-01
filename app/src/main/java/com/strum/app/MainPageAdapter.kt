@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.pageritem.view.*
@@ -28,7 +29,7 @@ class MainPageAdapter(val models: List<MainScreenModel>, val context: Context): 
 
         if(models[position].title.equals("Personal")){
             view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context, R.color.personalColor))
-            view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.personalColor),PorterDuff.Mode.MULTIPLY)
+            //view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.personalColor),PorterDuff.Mode.MULTIPLY)
         }
 
         else{
@@ -37,8 +38,23 @@ class MainPageAdapter(val models: List<MainScreenModel>, val context: Context): 
         }
 
         view.mainPagerItemIcn.setImageResource(models[position].imgId)
-        view.mainPagerItemPgBar.setProgress(models[position].progress)
+        view.mainPagerItemPgBar.progress = models[position].progress
         view.mainPagerItemSubtitle.text = models[position].subTitle
+
+        // click listener
+
+        view.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                if(position==0){
+                    Toast.makeText(context, "Personal clicked", Toast.LENGTH_LONG).show()
+                }
+                else if(position==1)
+                {
+                    Toast.makeText(context, "work clicked", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
 
         container.addView(view)
 
