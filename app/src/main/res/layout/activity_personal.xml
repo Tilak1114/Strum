@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/personalLay"
+    android:transitionName="laytrans"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PersonalActivity">
@@ -31,9 +33,9 @@
         android:layout_height="wrap_content">
         <ImageView
             android:transitionName="cardIcn"
-            android:layout_width="40dp"
+            android:layout_width="38dp"
             android:id="@+id/personalPagerIcn"
-            android:layout_height="40dp"
+            android:layout_height="38dp"
             android:layout_margin="20dp"
             android:src="@drawable/icn_personal"
             />
@@ -46,7 +48,7 @@
             android:layout_below="@id/personalSubtitle"
             android:textColor="#47B2E4"
             android:id="@+id/personalTitle"
-            android:textSize="34sp"
+            android:textSize="28sp"
             android:layout_marginStart="20dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -56,11 +58,11 @@
             android:text="4/15 Tasks"
             android:id="@+id/personalSubtitle"
             android:fontFamily="@font/ubuntu_reg"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:layout_marginStart="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@id/personalTitle"
             android:orientation="horizontal"
             android:layout_height="wrap_content">
@@ -71,13 +73,16 @@
                 android:indeterminate="false"
                 android:layout_gravity="center_vertical"
                 style="@android:style/Widget.ProgressBar.Horizontal"
-                android:id="@+id/mainPagerItemPgBar"
+                android:id="@+id/personalPgBar"
                 android:progressTint="@color/personalColor"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="3dp"
                 android:layout_marginStart="20dp"
                 android:layout_height="6dp"/>
             <TextView
                 android:layout_weight="1"
+                android:textStyle="bold"
+                android:id="@+id/progressTv"
+                android:fontFamily="@font/mons_reg"
                 android:layout_width="wrap_content"
                 android:text="20%"
                 android:layout_height="wrap_content"/>

@@ -19,7 +19,7 @@ class MainPageAdapter(private val models: List<MainScreenModel>,
                       private val itemClickListener: ItemClickListener): PagerAdapter(){
 
     interface ItemClickListener{
-        fun onItemClick(itemId: Int?)
+        fun onItemClick(itemId: Int?, progress: Int?)
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -53,7 +53,7 @@ class MainPageAdapter(private val models: List<MainScreenModel>,
         // click listener
 
         view.setOnClickListener {
-            itemClickListener.onItemClick(position)
+            itemClickListener.onItemClick(position, models[position].progress)
         }
 
         container.addView(view)

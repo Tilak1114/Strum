@@ -6,6 +6,8 @@
     android:layout_height="400dp">
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="20dp"
+        android:id="@+id/pagerCard"
+        android:transitionName="laytrans"
         android:foreground="?android:attr/selectableItemBackground"
         android:layout_marginStart="20dp"
         android:elevation="2dp"

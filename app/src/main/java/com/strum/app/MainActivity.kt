@@ -1,22 +1,21 @@
 package com.strum.app
 
-import android.animation.ArgbEvaluator
-import android.animation.ObjectAnimator
-import android.app.Activity
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.util.Pair
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.pageritem.*
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
@@ -41,8 +40,11 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         mainCompletedTasksTv.text = completedTasks
         greetingsFname.text = "Hello, $fname"
 
-        models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, 20))
-        models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_work, 90))
+        var perProg = 20
+        var workProg = 90
+
+        models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, perProg))
+        models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_work, workProg))
 
         var adapter =  MainPageAdapter(models, applicationContext, this)
 
@@ -80,9 +82,18 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         })
     }
 
-    override fun onItemClick(itemId: Int?) {
+    override fun onItemClick(itemId: Int?, progress: Int?) {
         if(itemId==0){
-
+            val intent = Intent(applicationContext, PersonalActivity::class.java)
+            intent.putExtra("progress", progress)
+            val p1 = Pair(pagerCard as View, "laytrans")
+            val p2 = Pair(mainPagerItemIcn as View, "cardIcn")
+            val p3 = Pair(mainPagerItemTitle as View, "cardTitle")
+            val p4 = Pair(mainPagerItemSubtitle as View, "cardSub")
+            val p5 = Pair(mainPagerItemPgBar as View, "cardPb")
+            val options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4, p5)
+            startActivity(intent, options.toBundle())
         }
     }
 }
