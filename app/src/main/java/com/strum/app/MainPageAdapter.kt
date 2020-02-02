@@ -1,16 +1,26 @@
 package com.strum.app
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.android.synthetic.main.pageritem.view.*
 
-class MainPageAdapter(private val models: List<MainScreenModel>, private val context: Context): PagerAdapter(){
+
+class MainPageAdapter(private val models: List<MainScreenModel>,
+                      private val context: Context,
+                      private val itemClickListener: ItemClickListener): PagerAdapter(){
+
+    interface ItemClickListener{
+        fun onItemClick(itemId: Int?)
+    }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view == `object`
@@ -43,11 +53,7 @@ class MainPageAdapter(private val models: List<MainScreenModel>, private val con
         // click listener
 
         view.setOnClickListener {
-            if(position==0){
-                Toast.makeText(context, "Personal clicked", Toast.LENGTH_LONG).show()
-            } else if(position==1) {
-                Toast.makeText(context, "work clicked", Toast.LENGTH_LONG).show()
-            }
+            itemClickListener.onItemClick(position)
         }
 
         container.addView(view)

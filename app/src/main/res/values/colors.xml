@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="personalColor">#47B2E4</color>
+    <color name="personalColor2">#5262E6</color>
     <color name="workColor">#F97579</color>
     <color name="workColorbar">#FAAE64</color>
 </resources>

@@ -18,6 +18,7 @@
             android:layout_marginBottom="20dp"
             android:layout_height="wrap_content">
             <ImageView
+                android:transitionName="cardIcn"
                 android:layout_width="35dp"
                 android:id="@+id/mainPagerItemIcn"
                 android:layout_height="35dp"
@@ -25,6 +26,7 @@
                 android:src="@drawable/icn_personal"
                 />
             <TextView
+                android:transitionName="cardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/mainPagerItemPgBar"
@@ -36,15 +38,17 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="20dp"/>
             <TextView
+                android:transitionName="cardSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/mainPagerItemTitle"
-                android:text="15 Tasks"
+                android:text="4/15 Tasks"
                 android:id="@+id/mainPagerItemSubtitle"
                 android:fontFamily="@font/ubuntu_reg"
                 android:textSize="18sp"
                 android:layout_marginStart="20dp"/>
             <ProgressBar
+                android:transitionName="cardPb"
                 android:layout_width="match_parent"
                 android:indeterminate="false"
                 style="@android:style/Widget.ProgressBar.Horizontal"

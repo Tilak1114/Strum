@@ -3,12 +3,14 @@ package com.strum.app
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,7 +18,7 @@ import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
     var models = ArrayList<MainScreenModel>()
 
@@ -28,8 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         var fname = "Kassandra"
 
-        var noOfPersonalTasks = "15 Tasks"
-        var noOfWorkTasks = "3 Tasks"
+        var noOfPersonalTasks = "4/15 Tasks"
+        var noOfWorkTasks = "2/3 Tasks"
         var completedTasks = "45 Tasks Completed"
 
         var date = Calendar.getInstance().time
@@ -42,10 +44,10 @@ class MainActivity : AppCompatActivity() {
         models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, 20))
         models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_work, 90))
 
-        var adapter =  MainPageAdapter(models, applicationContext)
+        var adapter =  MainPageAdapter(models, applicationContext, this)
 
         mainViewPager.adapter = adapter
-        mainViewPager.setPadding(0, 0, 100, 0)
+        mainViewPager.setPadding(20, 0, 100, 0)
 
         mainViewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
@@ -76,5 +78,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    override fun onItemClick(itemId: Int?) {
+        if(itemId==0){
+
+        }
     }
 }

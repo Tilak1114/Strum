@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PersonalActivity">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/personalTopbar"
+        android:layout_height="60dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:alpha="0.9"
+            android:elevation="1dp"
+            android:translationZ="2dp"
+            android:clickable="true"
+            android:id="@+id/backpersonal"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_back_btn"
+            android:tint="@android:color/black"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_below="@id/personalTopbar"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:transitionName="cardIcn"
+            android:layout_width="40dp"
+            android:id="@+id/personalPagerIcn"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/icn_personal"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:transitionName="cardTitle"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_reg"
+            android:text="Personal"
+            android:layout_below="@id/personalSubtitle"
+            android:textColor="#47B2E4"
+            android:id="@+id/personalTitle"
+            android:textSize="34sp"
+            android:layout_marginStart="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:transitionName="cardSub"
+            android:layout_below="@id/personalPagerIcn"
+            android:text="4/15 Tasks"
+            android:id="@+id/personalSubtitle"
+            android:fontFamily="@font/ubuntu_reg"
+            android:textSize="18sp"
+            android:layout_marginStart="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/personalTitle"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:transitionName="cardPb"
+                android:layout_weight="9"
+                android:layout_width="wrap_content"
+                android:indeterminate="false"
+                android:layout_gravity="center_vertical"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:id="@+id/mainPagerItemPgBar"
+                android:progressTint="@color/personalColor"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="20dp"
+                android:layout_height="6dp"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:text="20%"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
