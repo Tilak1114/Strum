@@ -29,22 +29,25 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         var fname = "Kassandra"
 
-        var noOfPersonalTasks = "4/15 Tasks"
-        var noOfWorkTasks = "2/3 Tasks"
-        var completedTasks = "45 Tasks Completed"
+        var noOfPersonalTasks = 4
+        var totalPersonalTasks = 15
+        var noOfWorkTasks = 2
+        var totalWorkTasks = 3
+
+        var totalCompletedTasks = 45
 
         var date = Calendar.getInstance().time
         var formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(date)
 
         todayDate.text = "Today: $formattedDate"
-        mainCompletedTasksTv.text = completedTasks
+        mainCompletedTasksTv.text = "$totalCompletedTasks tasks completed"
         greetingsFname.text = "Hello, $fname"
 
-        var perProg = 20
-        var workProg = 90
+        var perProg = (noOfPersonalTasks.toFloat()/totalPersonalTasks)*100
+        var workProg = (noOfWorkTasks.toFloat()/totalWorkTasks)*100
 
-        models.add(MainScreenModel("Personal", noOfPersonalTasks, R.drawable.icn_personal, perProg))
-        models.add(MainScreenModel("Work", noOfWorkTasks, R.drawable.icn_work, workProg))
+        models.add(MainScreenModel("Personal", noOfPersonalTasks, totalPersonalTasks, R.drawable.icn_personal, perProg.toInt()))
+        models.add(MainScreenModel("Work", noOfWorkTasks, totalWorkTasks, R.drawable.icn_work, workProg.toInt()))
 
         var adapter =  MainPageAdapter(models, applicationContext, this)
 
@@ -86,14 +89,19 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         if(itemId==0){
             val intent = Intent(applicationContext, PersonalActivity::class.java)
             intent.putExtra("progress", progress)
-            val p1 = Pair(pagerCard as View, "laytrans")
-            val p2 = Pair(mainPagerItemIcn as View, "cardIcn")
-            val p3 = Pair(mainPagerItemTitle as View, "cardTitle")
-            val p4 = Pair(mainPagerItemSubtitle as View, "cardSub")
-            val p5 = Pair(mainPagerItemPgBar as View, "cardPb")
-            val options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2, p3, p4, p5)
-            startActivity(intent, options.toBundle())
+//            val p1 = Pair(pagerCard as View, "laytrans")
+//            val p2 = Pair(mainPagerItemIcn as View, "cardIcn")
+//            val p3 = Pair(mainPagerItemTitle as View, "cardTitle")
+//            val p4 = Pair(mainPagerItemSubtitle as View, "cardSub")
+//            val p5 = Pair(mainPagerItemPgBar as View, "cardPb")
+//            val options =
+//                ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1)
+            startActivity(intent)
+        }
+        else if(itemId==1){
+            val intent = Intent(applicationContext, WorkActivity::class.java)
+            intent.putExtra("progress", progress)
+            startActivity(intent)
         }
     }
 }

@@ -48,7 +48,7 @@ class MainPageAdapter(private val models: List<MainScreenModel>,
 
         view.mainPagerItemIcn.setImageResource(models[position].imgId)
         view.mainPagerItemPgBar.progress = models[position].progress
-        view.mainPagerItemSubtitle.text = models[position].subTitle
+        view.mainPagerItemSubtitle.text = models[position].subTitleNum.toString()+"/"+models[position].subTitleDen+" Tasks"
 
         // click listener
 
