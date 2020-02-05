@@ -12,10 +12,13 @@ import kotlinx.android.synthetic.main.project_lay.view.*
 import java.util.*
 
 
-class ProjectAdapter(var context: Context, var list: List<ProjectModel>): RecyclerView.Adapter<ProjectAdapter.MyHolder>() {
+class ProjectAdapter(var context: Context, var list: List<ProjectModel>, var projectClickListener: ProjectClickListener): RecyclerView.Adapter<ProjectAdapter.MyHolder>() {
 
     var bckListDefault =  Arrays.asList(R.drawable.back_grad, R.drawable.back_grad_a, R.drawable.back_grad_b, R.drawable.back_grad_sec)
 
+    interface ProjectClickListener{
+        fun onProjectClick(projectId: Int)
+    }
 
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val projectShortTitle = itemView.findViewById(R.id.projectShortTitle) as TextView
@@ -39,5 +42,9 @@ class ProjectAdapter(var context: Context, var list: List<ProjectModel>): Recycl
         holder.projectFullTitle.text = list[position].projFName
         holder.projectAdmin.text = list[position].projectAdmin
         holder.projectCover.setImageResource(bckListDefault.random())
+
+        holder.itemView.projectCard.setOnClickListener{
+            projectClickListener.onProjectClick(list[position].projId)
+        }
     }
 }

@@ -1,11 +1,12 @@
 package com.strum.app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.activity_work.*
 
-class WorkActivity : AppCompatActivity() {
+class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,12 @@ class WorkActivity : AppCompatActivity() {
 
         projecttv.text = "Projects ( ${list.size} )"
 
-        var adapter = ProjectAdapter(applicationContext, list)
+        var adapter = ProjectAdapter(applicationContext, list, this)
         projectsRv.adapter = adapter
+    }
+
+    override fun onProjectClick(projectId: Int) {
+        val intent = Intent(applicationContext, ProjectDashboard::class.java)
+        startActivity(intent)
     }
 }

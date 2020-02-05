@@ -55,10 +55,10 @@
                     android:text="Feb 6 2020"/>
                 <TextView
                     android:textSize="18sp"
-                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:fontFamily="@font/product_sans"
                     android:id="@+id/persTaskName"
+                    android:textColor="@android:color/black"
                     android:layout_height="wrap_content"
                     android:text="Get Milk"/>
             </LinearLayout>

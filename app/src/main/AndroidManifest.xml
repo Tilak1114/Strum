@@ -8,9 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".WorkActivity"
-            android:theme="@style/Theme2"
-            ></activity>
+        <activity android:name=".ProjectDashboard"
+            android:theme="@style/Theme2"></activity>
+        <activity
+            android:name=".WorkActivity"
+            android:theme="@style/Theme2" />
         <activity
             android:name=".PersonalActivity"
             android:theme="@style/Theme2" />
