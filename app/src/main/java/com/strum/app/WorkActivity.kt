@@ -20,19 +20,18 @@ class WorkActivity : AppCompatActivity() {
             finish()
         }
 
-        projectsRv.layoutManager = GridLayoutManager(this, 3)
+        projectsRv.layoutManager = GridLayoutManager(this, 4)
 
         var list = ArrayList<ProjectModel>()
-        list.add(ProjectModel("CP", "Cyber Punk", "Anshul"))
-        list.add(ProjectModel("FB", "Fill BinLaden", "Kunal"))
-        list.add(ProjectModel("CP", "Cyber Punk", "Anshul"))
-        list.add(ProjectModel("FB", "Fill BinLaden", "Kunal"))
-        list.add(ProjectModel("CP", "Cyber Punk", "Anshul"))
-        list.add(ProjectModel("FB", "Fill BinLaden", "Kunal"))
-        list.add(ProjectModel("CP", "Cyber Punk", "Anshul"))
-        list.add(ProjectModel("FB", "Fill BinLaden", "Kunal"))
-        list.add(ProjectModel("CP", "Cyber Punk", "Anshul"))
-        list.add(ProjectModel("FB", "Fill BinLaden", "Kunal"))
+        list.add(ProjectModel(12, "CP", "Cyber Punk", "Anshul"))
+        list.add(ProjectModel(13, "FB", "Fill BinLaden", "Kunal"))
+        list.add(ProjectModel(14, "PR", "Practo Ray", "Anshul"))
+        list.add(ProjectModel(16, "SG", "Swiggy Gold", "Kunal"))
+        list.add(ProjectModel(15, "IN", "Invictus", "Anshul"))
+        list.add(ProjectModel(17, "LB", "Lambda bros", "Kunal"))
+        list.add(ProjectModel(18,"SV", "Smirnoff Vodka", "Anshul"))
+
+        projecttv.text = "Projects ( ${list.size} )"
 
         var adapter = ProjectAdapter(applicationContext, list)
         projectsRv.adapter = adapter

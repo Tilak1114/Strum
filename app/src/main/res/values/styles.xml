@@ -22,4 +22,8 @@
 
     </style>
 
+    <style name="MyCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:buttonTint">#5EBA7D</item>
+    </style>
+
 </resources>
