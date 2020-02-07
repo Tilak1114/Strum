@@ -24,6 +24,16 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:fontFamily="@font/product_sans"
+            android:layout_marginEnd="20dp"
+            android:text="Done"/>
     </RelativeLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Task Name"
             android:id="@+id/taskNameTv"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="30dp"/>
         <RelativeLayout
             android:layout_width="400dp"
@@ -64,7 +74,7 @@
                 android:fontFamily="@font/product_sans"
                 android:id="@+id/taskNameInput"
                 android:maxLines="1"
-                android:hint="Create a new Website"
+                android:hint="create a new website"
                 android:maxLength="25"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
@@ -79,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Assignee"
             android:id="@+id/AssigneeTv"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="30dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -88,7 +98,8 @@
             android:layout_marginTop="10dp"
             android:layout_below="@id/AssigneeTv"
             android:layout_marginStart="30dp"
-            android:layout_height="60dp" />
+            android:layout_height="80dp"
+            tools:listitem="@layout/assignee_lay"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,14 +109,14 @@
             android:layout_height="wrap_content"
             android:text="Priority"
             android:id="@+id/priorityTv"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="30dp"/>
 
         <com.google.android.material.tabs.TabLayout
             android:layout_below="@id/priorityTv"
             android:layout_width="wrap_content"
             android:minWidth="240dp"
-            android:layout_height="30dp"
+            android:layout_height="45dp"
             android:layout_marginStart="30dp"
             android:id="@+id/prioSelTab"
             android:layout_marginTop="10dp"
@@ -118,6 +129,28 @@
             app:tabIndicatorHeight="0dp"
             app:tabRippleColor="@null"
             app:tabTextAppearance="@style/TabTextAppearance"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deadline"
+            android:id="@+id/deadlineTv"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:layout_below="@id/prioSelTab"
+            android:fontFamily="@font/product_sans"
+            android:textSize="16sp"/>
+
+        <RelativeLayout
+            android:layout_width="400dp"
+            android:layout_below="@id/deadlineTv"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edittext_back"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp">
+
+        </RelativeLayout>
 
     </RelativeLayout>
 </RelativeLayout>

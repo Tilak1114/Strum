@@ -12,6 +12,7 @@ class ProjectDashboard : AppCompatActivity() {
     var tabLayout: TabLayout? = null
     lateinit var adapter: TeamAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_project_dashboard)
@@ -38,13 +39,13 @@ class ProjectDashboard : AppCompatActivity() {
         // add only 3 elements
         var teamList = ArrayList<TeamMemberModel>()
 
-        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg", "Mia"))
-        teamList.add(TeamMemberModel("https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg", "Mia"))
+        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",1, "Mia"))
+        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", 2,"Mia"))
+        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg", 3,"Mia"))
+        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", 4, "Mia"))
+        teamList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",5, "Mia"))
+        teamList.add(TeamMemberModel("https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg", 6,"Mia"))
+        teamList.add(TeamMemberModel("https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg", 7,"Mia"))
 
         var teamListShort = ArrayList<TeamMemberModel>()
 
@@ -58,7 +59,7 @@ class ProjectDashboard : AppCompatActivity() {
                 var randomPerson = teamList.random()
                 teamListShort.add(randomPerson)
             }
-            teamListShort.add(TeamMemberModel("END", "DONE"))
+            teamListShort.add(TeamMemberModel("END", -1,"DONE"))
             adapter = TeamAdapter(applicationContext, teamListShort, teamList.size)
             teammembrv.adapter = adapter
         }
