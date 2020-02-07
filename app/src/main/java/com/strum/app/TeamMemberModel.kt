@@ -1,3 +1,3 @@
 package com.strum.app
 
-data class TeamMemberModel(var url: String)
+data class TeamMemberModel(var url: String, var userId: String)

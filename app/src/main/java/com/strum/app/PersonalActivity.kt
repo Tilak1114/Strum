@@ -12,6 +12,7 @@ import kotlin.collections.ArrayList
 class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeListener {
 
     var list = ArrayList<PersonalTaskModel>()
+    lateinit var adapter: PersonalTaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeLi
 
         taskstv.text = "Tasks ( $taskNumber )"
 
-        var adapter = PersonalTaskAdapter(applicationContext, list, this)
+        adapter = PersonalTaskAdapter(applicationContext, list, this)
 
         tasksrv.adapter = adapter
     }
@@ -82,11 +83,12 @@ class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeLi
             list.remove(temp)
             list.add(temp)
 
-            var adapter = PersonalTaskAdapter(applicationContext, list, this)
-
-            tasksrv.adapter = adapter
+            //var adapter = PersonalTaskAdapter(applicationContext, list, this)
+            adapter.notifyDataSetChanged()
 
             taskstv.text = "Tasks ( ${getPendingTasks(list)} )"
+
+
         }
     }
 

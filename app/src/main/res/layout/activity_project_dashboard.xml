@@ -124,7 +124,7 @@
                 android:layout_width="match_parent"
                 android:id="@+id/teammembrv"
                 android:orientation="horizontal"
-                android:layout_height="50dp"/>
+                android:layout_height="55dp"/>
         </RelativeLayout>
     </RelativeLayout>
     <TextView
@@ -149,8 +149,11 @@
         android:layout_below="@id/taskBoardTv"
         android:layout_height="match_parent">
         <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
+            android:minWidth="350dp"
+            android:layout_width="wrap_content"
+            app:tabMinWidth="180dp"
             android:elevation="2dp"
+            android:layout_centerHorizontal="true"
             android:translationZ="2dp"
             android:layout_margin="10dp"
             android:background="@drawable/tab_layout_background"
@@ -171,4 +174,13 @@
             android:layout_below="@id/tasksTabs"/>
 
     </RelativeLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/projectFAB"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add"
+        android:backgroundTint="@color/workColor"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>

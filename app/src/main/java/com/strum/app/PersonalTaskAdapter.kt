@@ -45,9 +45,9 @@ class PersonalTaskAdapter(var context: Context, var tasks: List<PersonalTaskMode
         holder.itemView.taskStatusCb.setOnCheckedChangeListener{ buttonView, isChecked ->
             if(isChecked){
                 tasks[position].status = "Completed"
-                holder.itemView.strikeView.visibility = View.VISIBLE
+                //holder.itemView.strikeView.visibility = View.VISIBLE
+                //holder.itemView.taskStatusCb.visibility = View.INVISIBLE
                 statusChangeListener.onStatusChanged("Completed", tasks[position].taskId, tasks[position].priority, tasks[position].taskName, tasks[position].deadline)
-                holder.itemView.taskStatusCb.visibility = View.INVISIBLE
             }
 //            else{
 //                tasks[position].status = "Pending"
