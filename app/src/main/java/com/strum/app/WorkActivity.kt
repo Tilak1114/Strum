@@ -13,6 +13,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         setContentView(R.layout.activity_work)
 
         val prog = intent.getIntExtra("progress", 0)
+        val userId = intent.getIntExtra("userId", -1)
 
         workPgBar.setProgress(prog)
         wprogressTv.text = prog.toString()+"%"
@@ -22,6 +23,10 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         }
 
         projectsRv.layoutManager = GridLayoutManager(this, 4)
+
+        //get all projects
+
+
 
         var list = ArrayList<ProjectModel>()
         list.add(ProjectModel(12, "CP", "Cyber Punk", "Anshul"))

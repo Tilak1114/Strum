@@ -3,15 +3,21 @@ package com.strum.app
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
-import androidx.core.util.Pair
 import androidx.viewpager.widget.ViewPager
+import com.strum.app.network.BasicAuthInterceptor
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.pageritem.*
+
+import okhttp3.OkHttpClient
+
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,6 +26,8 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
     var models = ArrayList<MainScreenModel>()
+    var fname = ""
+    var userId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +35,31 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         //TODO: Get request to get noOfPersonalTasks, WorkTasks, CompletedTasks etc
 
-        var fname = "Kassandra"
+        val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(BasicAuthInterceptor(getUserName(), getPassword())).build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://strum-task-manager.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(defaultHttpClient)
+            .build()
+
+        val api = retrofit.create(BackendApi::class.java)
+
+        api.getUserInfo().enqueue(object : Callback<User>{
+            override fun onFailure(call: Call<User>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<User>, response: retrofit2.Response<User>) {
+                Log.d("Response", response.body().toString())
+                fname = response.body()!!.username
+                userId = response.body()!!.userid
+                greetingsFname.text = "Hello, $fname"
+            }
+
+        })
+
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15
@@ -101,7 +133,15 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         else if(itemId==1){
             val intent = Intent(applicationContext, WorkActivity::class.java)
             intent.putExtra("progress", progress)
+            intent.putExtra("userId", userId)
             startActivity(intent)
         }
+    }
+
+    fun getUserName(): String{
+        return "anshul"
+    }
+    fun getPassword(): String{
+        return "1234"
     }
 }
