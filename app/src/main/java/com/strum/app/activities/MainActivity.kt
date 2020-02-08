@@ -40,33 +40,8 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         //TODO: Get request to get noOfPersonalTasks, WorkTasks, CompletedTasks etc
 
-        val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(BasicAuthInterceptor(getUserName(), getPassword())).build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://strum-task-manager.herokuapp.com")
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(defaultHttpClient)
-            .build()
-
-        val api = retrofit.create(BackendApi::class.java)
-
-        api.getUserInfo().enqueue(object : Callback<User>{
-            override fun onFailure(call: Call<User>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<User>, response: retrofit2.Response<User>) {
-                Log.d("Response", response.body().toString())
-                if(response.isSuccessful){
-                    fname = response.body()!!.username
-                    userId = response.body()!!.userid
-                    greetingsFname.text = "Hello, $fname"
-                }
-            }
-
-        })
-
+        var intent = getIntent()
+        fname = intent.getStringExtra("userName")
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15

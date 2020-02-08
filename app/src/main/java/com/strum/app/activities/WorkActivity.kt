@@ -39,39 +39,6 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
 
         //temp signup code
 
-        val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
-            .addInterceptor(object : Interceptor {
-                @Throws(IOException::class)
-                override fun intercept(chain: Interceptor.Chain): Response {
-                    val request = chain.request()
-                    val authenticatedRequest = request.newBuilder()
-                        .header("Content-Type", "application/json").build()
-                    return chain.proceed(authenticatedRequest)
-                }
-            }).build()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://strum-task-manager.herokuapp.com")
-            .addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(defaultHttpClient)
-            .build()
-
-        val api = retrofit.create(BackendApi::class.java)
-        var jsonObject : JSONObject = JSONObject()
-        jsonObject.put("username", "khan1")
-        jsonObject.put("password", "boom2")
-
-        api.newUser(jsonObject.toString())?.enqueue(object : Callback<User?>{
-            override fun onFailure(call: Call<User?>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<User?>, response: retrofit2.Response<User?>) {
-                Log.d("Response", response.body()?.username.toString())
-            }
-
-        })
 
         backwork.setOnClickListener{
             finish()
