@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.squareup.picasso.Picasso
 import com.strum.app.services.BackendApi
 import com.strum.app.R
 import com.strum.app.adapters.MainPageAdapter
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
     var models = ArrayList<MainScreenModel>()
     var fname : String? = null
     var userId: Int? = null
+    var profileUrl: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         var intent = getIntent()
         fname = intent.getStringExtra("userName")
+        profileUrl = intent.getStringExtra("userUrl")
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15
@@ -56,6 +59,8 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         todayDate.text = "Today: $formattedDate"
         mainCompletedTasksTv.text = "$totalCompletedTasks tasks completed"
         greetingsFname.text = "Hello, $fname"
+
+        Picasso.with(applicationContext).load(profileUrl).into(profilePic)
 
         var perProg = (noOfPersonalTasks.toFloat()/totalPersonalTasks)*100
         var workProg = (noOfWorkTasks.toFloat()/totalWorkTasks)*100

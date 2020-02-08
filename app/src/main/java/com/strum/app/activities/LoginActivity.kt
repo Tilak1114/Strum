@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
                         if(response.isSuccessful){
                             var username = response.body()!!.username
                             var userid = response.body()!!.userid
+                            var userUrl = response.body()!!.url
 //                            fname = response.body()!!.username
 //                            userId = response.body()!!.userid
 //                            greetingsFname.text = "Hello, $fname"
@@ -73,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
                             var intent = Intent(applicationContext, MainActivity::class.java)
                             intent.putExtra("userName", username)
                             intent.putExtra("userId", userid)
+                            intent.putExtra("userUrl", userUrl)
                             startActivity(intent)
                         }
                         else

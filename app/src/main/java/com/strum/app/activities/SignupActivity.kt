@@ -40,10 +40,16 @@ class SignupActivity : AppCompatActivity() {
                 usernameInput.error = "Required"
             }
             if(passInputsnp.text.isEmpty()){
-
+                passInputsnp.error = "Password beko laude"
             }
             if(cpwdet.text.isEmpty()){
-
+                cpwdet.error = "Confirmation required"
+            }
+            if(cpwdet.text.toString()!=passInputsnp.text.toString()){
+                Toast.makeText(applicationContext, "Passwords don't match", Toast.LENGTH_LONG).show()
+            }
+            if(profileurlet.text.isEmpty()){
+                profileurlet.error = "We want to see your beautiful face"
             }
             if(!usernameInput.text.isEmpty()&&!passInputsnp.text.isEmpty()&&!cpwdet.text.isEmpty()
                 && passInputsnp.text.toString() == cpwdet.text.toString()

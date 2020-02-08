@@ -100,8 +100,8 @@
             android:text="Today: January 29, 2020"/>
 
         <androidx.viewpager.widget.ViewPager
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="400dp"
+            android:layout_height="420dp"
             android:id="@+id/mainViewPager"
             android:overScrollMode="never"
             android:clipToPadding="false"

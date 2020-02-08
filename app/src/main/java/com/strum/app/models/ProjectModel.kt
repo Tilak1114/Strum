@@ -1,3 +1,16 @@
 package com.strum.app.models
 
-data class ProjectModel(var projId: Int, var projSName: String?, var projFName: String?, var projectAdmin: String?)
+import com.google.gson.annotations.SerializedName
+
+data class ProjectModel(
+    @SerializedName("projectid")
+    var projId: Int,
+
+    var projSName: String?,
+
+    @SerializedName("projectname")
+    var projFName: String,
+
+
+    @SerializedName("adminname")
+    var projectAdmin: String)

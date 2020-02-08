@@ -3,14 +3,18 @@ package com.strum.app.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonObject
 import com.strum.app.R
 import com.strum.app.adapters.ProjectAdapter
 import com.strum.app.models.ProjectModel
+import com.strum.app.models.ProjectResponse
 import com.strum.app.models.User
+import com.strum.app.network.BasicAuthInterceptor
 import com.strum.app.services.BackendApi
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_work.*
 import okhttp3.Credentials
 import okhttp3.Interceptor
@@ -37,7 +41,38 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         workPgBar.setProgress(prog)
         wprogressTv.text = prog.toString()+"%"
 
-        //temp signup code
+        //fetch all projects
+
+        val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
+            .addInterceptor(
+                BasicAuthInterceptor("nitheesh",
+                    "12345")
+            ).build()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://strum-task-manager.herokuapp.com")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(defaultHttpClient)
+            .build()
+
+        val api = retrofit.create(BackendApi::class.java)
+
+        api.getProjects().enqueue(object : Callback<ProjectResponse>{
+            override fun onFailure(call: Call<ProjectResponse>, t: Throwable) {
+                Log.d("Projectres", t.message.toString())
+            }
+
+            override fun onResponse(
+                call: Call<ProjectResponse>,
+                response: retrofit2.Response<ProjectResponse>
+            ) {
+                Log.d("Projectres", response.code().toString())
+                if(response.isSuccessful){
+                    Log.d("printRes", response.body().toString())
+                }
+            }
+
+        })
 
 
         backwork.setOnClickListener{

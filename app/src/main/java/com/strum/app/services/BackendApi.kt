@@ -1,5 +1,7 @@
 package com.strum.app.services
 
+import com.strum.app.models.ProjectModel
+import com.strum.app.models.ProjectResponse
 import com.strum.app.models.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -17,6 +19,6 @@ interface BackendApi {
     @GET("/api/getusers")
     fun getUserInfo(): Call<User>
 
-    @GET("")
-    fun getProjects(): Call<User>
+    @GET("/api/getprojects")
+    fun getProjects(): Call<ProjectResponse>
 }

@@ -8,5 +8,5 @@ data class User(
     var userid: Int,
     @SerializedName("username")
     var username: String,
-
+    @SerializedName("profileurl")
     var url: String)
