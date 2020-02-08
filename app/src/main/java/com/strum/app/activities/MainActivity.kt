@@ -31,7 +31,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
     var models = ArrayList<MainScreenModel>()
-    var fname = ""
+    var fname : String? = null
     var userId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,9 +58,11 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
             override fun onResponse(call: Call<User>, response: retrofit2.Response<User>) {
                 Log.d("Response", response.body().toString())
-                fname = response.body()!!.username
-                userId = response.body()!!.userid
-                greetingsFname.text = "Hello, $fname"
+                if(response.isSuccessful){
+                    fname = response.body()!!.username
+                    userId = response.body()!!.userid
+                    greetingsFname.text = "Hello, $fname"
+                }
             }
 
         })
