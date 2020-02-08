@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import com.strum.app.R
+import com.strum.app.models.TeamMemberModel
 import kotlinx.android.synthetic.main.team_memb_lay.view.*
 
 

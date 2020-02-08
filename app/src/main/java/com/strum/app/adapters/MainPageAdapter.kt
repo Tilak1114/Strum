@@ -1,22 +1,21 @@
-package com.strum.app
+package com.strum.app.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.viewpager.widget.PagerAdapter
+import com.strum.app.R
+import com.strum.app.models.MainScreenModel
 import kotlinx.android.synthetic.main.pageritem.view.*
 
 
 class MainPageAdapter(private val models: List<MainScreenModel>,
                       private val context: Context,
-                      private val itemClickListener: ItemClickListener): PagerAdapter(){
+                      private val itemClickListener: ItemClickListener
+): PagerAdapter(){
 
     interface ItemClickListener{
         fun onItemClick(itemId: Int?, progress: Int?)
@@ -37,13 +36,19 @@ class MainPageAdapter(private val models: List<MainScreenModel>,
         view.mainPagerItemTitle.text = models[position].title
 
         if(models[position].title.equals("Personal")){
-            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context, R.color.personalColor))
+            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context,
+                R.color.personalColor
+            ))
             //view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.personalColor),PorterDuff.Mode.MULTIPLY)
         }
 
         else{
-            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context, R.color.workColor))
-            view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context, R.color.workColor),PorterDuff.Mode.MULTIPLY)
+            view.mainPagerItemTitle.setTextColor(ContextCompat.getColor(context,
+                R.color.workColor
+            ))
+            view.mainPagerItemPgBar.progressDrawable.setColorFilter(ContextCompat.getColor(context,
+                R.color.workColor
+            ),PorterDuff.Mode.MULTIPLY)
         }
 
         view.mainPagerItemIcn.setImageResource(models[position].imgId)

@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.activities
 
 import android.content.Intent
 import android.os.Build
@@ -8,6 +8,11 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.strum.app.services.BackendApi
+import com.strum.app.R
+import com.strum.app.adapters.MainPageAdapter
+import com.strum.app.models.MainScreenModel
+import com.strum.app.models.User
 import com.strum.app.network.BasicAuthInterceptor
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -78,10 +83,30 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         var perProg = (noOfPersonalTasks.toFloat()/totalPersonalTasks)*100
         var workProg = (noOfWorkTasks.toFloat()/totalWorkTasks)*100
 
-        models.add(MainScreenModel("Personal", noOfPersonalTasks, totalPersonalTasks, R.drawable.icn_personal, perProg.toInt()))
-        models.add(MainScreenModel("Work", noOfWorkTasks, totalWorkTasks, R.drawable.icn_work, workProg.toInt()))
+        models.add(
+            MainScreenModel(
+                "Personal",
+                noOfPersonalTasks,
+                totalPersonalTasks,
+                R.drawable.icn_personal,
+                perProg.toInt()
+            )
+        )
+        models.add(
+            MainScreenModel(
+                "Work",
+                noOfWorkTasks,
+                totalWorkTasks,
+                R.drawable.icn_work,
+                workProg.toInt()
+            )
+        )
 
-        var adapter =  MainPageAdapter(models, applicationContext, this)
+        var adapter = MainPageAdapter(
+            models,
+            applicationContext,
+            this
+        )
 
         mainViewPager.adapter = adapter
         mainViewPager.setPadding(20, 0, 100, 0)
@@ -97,7 +122,9 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
                     {
                         var window = window
                         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.personalColor)
+                        window.statusBarColor = ContextCompat.getColor(applicationContext,
+                            R.color.personalColor
+                        )
                     }
                     mainactivityLay.setBackgroundResource(R.drawable.back_grad)
                 }
@@ -107,7 +134,9 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
                     {
                         var window = window
                         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                        window.statusBarColor = ContextCompat.getColor(applicationContext, R.color.workColorbar)
+                        window.statusBarColor = ContextCompat.getColor(applicationContext,
+                            R.color.workColorbar
+                        )
                     }
                 }
             }

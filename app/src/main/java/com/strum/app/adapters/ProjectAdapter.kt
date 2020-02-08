@@ -1,20 +1,26 @@
-package com.strum.app
+package com.strum.app.adapters
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.strum.app.R
+import com.strum.app.models.ProjectModel
 import kotlinx.android.synthetic.main.project_lay.view.*
 import java.util.*
 
 
 class ProjectAdapter(var context: Context, var list: List<ProjectModel>, var projectClickListener: ProjectClickListener): RecyclerView.Adapter<ProjectAdapter.MyHolder>() {
 
-    var bckListDefault =  Arrays.asList(R.drawable.back_grad, R.drawable.back_grad_a, R.drawable.back_grad_b, R.drawable.back_grad_sec)
+    var bckListDefault =  Arrays.asList(
+        R.drawable.back_grad,
+        R.drawable.back_grad_a,
+        R.drawable.back_grad_b,
+        R.drawable.back_grad_sec
+    )
 
     interface ProjectClickListener{
         fun onProjectClick(projectId: Int)

@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.models
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @SerializedName("id")
     var userid: Int,
-    @SerializedName("name")
+    @SerializedName("username")
     var username: String,
 
     var url: String)

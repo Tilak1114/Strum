@@ -1,7 +1,8 @@
-package com.strum.app
+package com.strum.app.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.strum.app.R
 
 class SplashScreen : AppCompatActivity() {
 

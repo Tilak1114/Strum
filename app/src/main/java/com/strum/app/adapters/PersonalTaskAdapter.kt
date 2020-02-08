@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.strum.app.R
+import com.strum.app.models.PersonalTaskModel
 import kotlinx.android.synthetic.main.personal_task_item_lay.view.*
-import kotlinx.android.synthetic.main.project_lay.view.*
 import java.text.DateFormat
 import java.util.*
 
@@ -30,8 +31,12 @@ class PersonalTaskAdapter(var context: Context, var tasks: List<PersonalTaskMode
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         when(tasks[position].priority){
-           "HIGH"->holder.itemView.priorityBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.prioHigh))
-           "MED"->holder.itemView.priorityBadge.setBackgroundColor(ContextCompat.getColor(context, R.color.prioMed))
+           "HIGH"->holder.itemView.priorityBadge.setBackgroundColor(ContextCompat.getColor(context,
+               R.color.prioHigh
+           ))
+           "MED"->holder.itemView.priorityBadge.setBackgroundColor(ContextCompat.getColor(context,
+               R.color.prioMed
+           ))
            "LOW" -> holder.itemView.priorityBadge.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
         }
 

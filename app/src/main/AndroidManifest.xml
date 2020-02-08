@@ -10,20 +10,20 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-        <activity android:name=".CreateTask"
+        <activity android:name=".activities.CreateTask"
             android:theme="@style/Theme2"></activity>
         <activity
-            android:name=".ProjectDashboard"
+            android:name=".activities.ProjectDashboard"
             android:theme="@style/Theme2" />
         <activity
-            android:name=".WorkActivity"
+            android:name=".activities.WorkActivity"
             android:theme="@style/Theme2" />
         <activity
-            android:name=".PersonalActivity"
+            android:name=".activities.PersonalActivity"
             android:theme="@style/Theme2" />
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".activities.SplashScreen" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

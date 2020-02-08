@@ -1,11 +1,12 @@
-package com.strum.app
+package com.strum.app.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayout
+import com.strum.app.R
+import com.strum.app.adapters.PersonalTaskAdapter
+import com.strum.app.models.PersonalTaskModel
 import kotlinx.android.synthetic.main.activity_personal.*
-import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -31,12 +32,60 @@ class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeLi
 
         var date = Calendar.getInstance().time
 //        var formattedDate = DateFormat.getDateInstance(DateFormat.LONG).format(date)
-        list.add(PersonalTaskModel(1,"HIGH", "Get Milk", date, "Pending"))
-        list.add(PersonalTaskModel(2, "HIGH", "Go to the Gym", date, "Completed"))
-        list.add(PersonalTaskModel(3, "MED", "Feed the baby", date, "Pending"))
-        list.add(PersonalTaskModel(4, "HIGH", "Get stuff", date, "Completed"))
-        list.add(PersonalTaskModel(5,"LOW", "Go Swimming", date, "Pending"))
-        list.add(PersonalTaskModel(6,"HIGH", "Meet Steve", date, "Completed"))
+        list.add(
+            PersonalTaskModel(
+                1,
+                "HIGH",
+                "Get Milk",
+                date,
+                "Pending"
+            )
+        )
+        list.add(
+            PersonalTaskModel(
+                2,
+                "HIGH",
+                "Go to the Gym",
+                date,
+                "Completed"
+            )
+        )
+        list.add(
+            PersonalTaskModel(
+                3,
+                "MED",
+                "Feed the baby",
+                date,
+                "Pending"
+            )
+        )
+        list.add(
+            PersonalTaskModel(
+                4,
+                "HIGH",
+                "Get stuff",
+                date,
+                "Completed"
+            )
+        )
+        list.add(
+            PersonalTaskModel(
+                5,
+                "LOW",
+                "Go Swimming",
+                date,
+                "Pending"
+            )
+        )
+        list.add(
+            PersonalTaskModel(
+                6,
+                "HIGH",
+                "Meet Steve",
+                date,
+                "Completed"
+            )
+        )
 
         list = refactorList(list)
 
@@ -44,7 +93,11 @@ class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeLi
 
         taskstv.text = "Tasks ( $taskNumber )"
 
-        adapter = PersonalTaskAdapter(applicationContext, list, this)
+        adapter = PersonalTaskAdapter(
+            applicationContext,
+            list,
+            this
+        )
 
         tasksrv.adapter = adapter
     }
@@ -79,7 +132,13 @@ class PersonalActivity : AppCompatActivity(), PersonalTaskAdapter.StatusChangeLi
         date: Date
     ) {
         if(status.equals("Completed")){
-            var temp = PersonalTaskModel(id, priority, taskName, date, status)
+            var temp = PersonalTaskModel(
+                id,
+                priority,
+                taskName,
+                date,
+                status
+            )
             list.remove(temp)
             list.add(temp)
 

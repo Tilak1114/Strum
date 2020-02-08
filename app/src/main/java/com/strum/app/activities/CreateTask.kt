@@ -1,10 +1,13 @@
-package com.strum.app
+package com.strum.app.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
+import com.strum.app.R
+import com.strum.app.adapters.AssigneeAdapter
+import com.strum.app.models.TeamMemberModel
 import kotlinx.android.synthetic.main.activity_create_task.*
 
 class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
@@ -19,10 +22,26 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
 
         var assigneeList = ArrayList<TeamMemberModel>()
 
-        assigneeList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", 2,"Mia"))
-        assigneeList.add(TeamMemberModel("https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg", 1,"Mia"))
+        assigneeList.add(
+            TeamMemberModel(
+                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
+                2,
+                "Mia"
+            )
+        )
+        assigneeList.add(
+            TeamMemberModel(
+                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
+                1,
+                "Mia"
+            )
+        )
 
-        adapter = AssigneeAdapter(applicationContext, assigneeList, this)
+        adapter = AssigneeAdapter(
+            applicationContext,
+            assigneeList,
+            this
+        )
 
         assignSelRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         assignSelRv.adapter = adapter

@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.adapters
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_create_task.view.*
+import com.strum.app.R
+import com.strum.app.models.TeamMemberModel
 import kotlinx.android.synthetic.main.assignee_lay.view.*
 
 
@@ -45,7 +46,9 @@ class AssigneeAdapter(var context: Context, var teammemblist:List<TeamMemberMode
 
         if(currentSel==position){
             holder.itemView.teamMembPicAssignee.borderWidth = 10
-            holder.itemView.teamMembPicAssignee.borderColor = ContextCompat.getColor(context, R.color.workColor)
+            holder.itemView.teamMembPicAssignee.borderColor = ContextCompat.getColor(context,
+                R.color.workColor
+            )
         }
 
         else{

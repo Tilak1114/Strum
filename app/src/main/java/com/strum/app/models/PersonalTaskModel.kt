@@ -1,4 +1,4 @@
-package com.strum.app
+package com.strum.app.models
 
 import java.util.*
 
