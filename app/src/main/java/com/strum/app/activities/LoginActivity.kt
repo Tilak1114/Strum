@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
                 api.getUserInfo().enqueue(object : Callback<User> {
                     override fun onFailure(call: Call<User>, t: Throwable) {
-
+                        progressDialog.dismiss()
                     }
 
                     override fun onResponse(call: Call<User>, response: retrofit2.Response<User>) {
@@ -66,6 +66,21 @@ class LoginActivity : AppCompatActivity() {
                             var username = response.body()!!.username
                             var userid = response.body()!!.userid
                             var userUrl = response.body()!!.url
+
+
+                            //save data into shared preferences
+
+                            var sharedPreferences = getSharedPreferences("MySharedPref",
+                                MODE_PRIVATE)
+                            var myEdit = sharedPreferences.edit()
+                            myEdit.putString("userName", username)
+                            myEdit.putString("password", passInput.text.toString())
+                            myEdit.putInt("userId", userid)
+                            myEdit.putString("userUrl", userUrl)
+                            myEdit.putBoolean("hasLoggedIn", true)
+
+                            myEdit.apply()
+
 //                            fname = response.body()!!.username
 //                            userId = response.body()!!.userid
 //                            greetingsFname.text = "Hello, $fname"

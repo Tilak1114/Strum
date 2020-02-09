@@ -1,5 +1,6 @@
 package com.strum.app.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.strum.app.adapters.MainPageAdapter
 import com.strum.app.models.MainScreenModel
 import com.strum.app.models.User
 import com.strum.app.network.BasicAuthInterceptor
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 import okhttp3.OkHttpClient
@@ -42,9 +44,20 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         //TODO: Get request to get noOfPersonalTasks, WorkTasks, CompletedTasks etc
 
-        var intent = getIntent()
-        fname = intent.getStringExtra("userName")
-        profileUrl = intent.getStringExtra("userUrl")
+        mainmenu.setOnClickListener{
+            logout()
+        }
+
+        //get from sharedprefs
+
+        if(!getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+                .getBoolean("hasLoggedIn", false)){
+            finish()
+        }
+
+
+        fname = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
+        profileUrl = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userUrl", "")
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15
@@ -60,7 +73,12 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         mainCompletedTasksTv.text = "$totalCompletedTasks tasks completed"
         greetingsFname.text = "Hello, $fname"
 
-        Picasso.with(applicationContext).load(profileUrl).into(profilePic)
+        if(profileUrl!=null&&!profileUrl.equals("")){
+            Picasso.with(applicationContext).load(profileUrl).into(profilePic)
+        }
+        else{
+            Picasso.with(applicationContext).load(R.drawable.avatar).into(profilePic)
+        }
 
         var perProg = (noOfPersonalTasks.toFloat()/totalPersonalTasks)*100
         var workProg = (noOfWorkTasks.toFloat()/totalWorkTasks)*100
@@ -154,5 +172,21 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
     }
     fun getPassword(): String{
         return "1234"
+    }
+
+    fun logout(){
+        var sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+
+        var myEdit = sharedPreferences.edit()
+
+        myEdit.putString("userName", "")
+        myEdit.putString("password", "")
+        myEdit.putInt("userId", -1)
+        myEdit.putString("userUrl", "")
+        myEdit.putBoolean("hasLoggedIn", false)
+
+        myEdit.commit()
+
+        finish()
     }
 }
