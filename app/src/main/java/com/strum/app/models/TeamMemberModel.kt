@@ -1,3 +1,11 @@
 package com.strum.app.models
 
-data class TeamMemberModel(var url: String, var userId: Int, var userName: String)
+import com.google.gson.annotations.SerializedName
+
+data class TeamMemberModel(
+    @SerializedName("profileurl")
+    var url: String,
+    @SerializedName("userid")
+    var userId: Int,
+    @SerializedName("username")
+    var userName: String)

@@ -50,7 +50,8 @@ class ProjectAdapter(var context: Context, var list: List<ProjectModel>, var pro
         holder.projectCover.setImageResource(bckListDefault.random())
 
         holder.itemView.projectCard.setOnClickListener{
-            projectClickListener.onProjectClick(list[position].projId,
+            projectClickListener.onProjectClick(
+                list[position].projId,
                 list[position].projFName,
                 list[position].projectAdmin)
         }

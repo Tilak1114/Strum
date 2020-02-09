@@ -91,12 +91,13 @@
             android:layout_below="@id/ProjectAdminDetails"
             android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
-            android:fontFamily="@font/mons_reg"
+            android:fontFamily="@font/ubuntu_reg"
             android:layout_marginEnd="30dp"
-            android:maxLines="4"
-            android:text="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. "
-            android:layout_width="match_parent"
-            android:layout_height="80dp"/>
+            android:id="@+id/projectDesc"
+            android:maxLines="2"
+            android:text=""
+            android:layout_width="400dp"
+            android:layout_height="50dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/teamLay"

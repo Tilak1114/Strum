@@ -10,6 +10,7 @@ import com.strum.app.R
 import com.strum.app.adapters.TeamAdapter
 import com.strum.app.models.ProjectDetailModel
 import com.strum.app.models.TeamMemberModel
+import com.strum.app.models.User
 import com.strum.app.network.BasicAuthInterceptor
 import com.strum.app.services.BackendApi
 import kotlinx.android.synthetic.main.activity_login.*
@@ -49,7 +50,10 @@ class ProjectDashboard : AppCompatActivity() {
         ProjectName.text = intent.getStringExtra("projectName")
         ProjectAdminDetails.text = intent.getStringExtra("projectAdmin")
 
-        var projectId = intent.getIntExtra("projectId", -1)
+        var projectId = intent.getIntExtra("projId", -1)
+
+        var teamList = ArrayList<User>()
+        var teamListShort = ArrayList<User>()
 
         //get project details from id
 
@@ -58,21 +62,10 @@ class ProjectDashboard : AppCompatActivity() {
                 .addInterceptor(
                     BasicAuthInterceptor("nitheesh",
                         "12345")
-                )
-                .addInterceptor(object : Interceptor {
-                    @Throws(IOException::class)
-                    override fun intercept(chain: Interceptor.Chain): Response {
-                        val request = chain.request()
-                        val authenticatedRequest = request.newBuilder()
-                            .header("Content-Type", "application/json")
-                            .build()
-                        return chain.proceed(authenticatedRequest)
-                    }
-                }).build()
+                ).build()
 
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://strum-task-manager.herokuapp.com")
-                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(defaultHttpClient)
                 .build()
@@ -81,7 +74,7 @@ class ProjectDashboard : AppCompatActivity() {
 
             api.getProjectDetails(projectId).enqueue(object : Callback<ProjectDetailModel>{
                 override fun onFailure(call: Call<ProjectDetailModel>, t: Throwable) {
-
+                    Log.d("onfail", "fail")
                 }
 
                 override fun onResponse(
@@ -89,6 +82,40 @@ class ProjectDashboard : AppCompatActivity() {
                     response: retrofit2.Response<ProjectDetailModel>
                 ) {
                     Log.d("projectdetails", response.body()!!.description)
+                    projectDesc.text = response.body()!!.description
+                    // make team list
+
+                    Log.d("teamshakira", response.body()!!.teamList.toString())
+
+                    for(teammember in response.body()!!.teamList)
+                    {
+                        teamList.add(User(teammember.userid, teammember.username, "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg"))
+                    }
+
+                    if(teamList.size<=3){
+                        teamListShort = teamList
+                        adapter = TeamAdapter(applicationContext, teamListShort, teamList.size)
+
+                        teammembrv.adapter = adapter
+                    }
+
+                    else{
+                        while (teamListShort.size < 3){
+                            var randomPerson = teamList.random()
+                            teamListShort.add(randomPerson)
+                        }
+                        teamListShort.add(
+                            User(
+                                -1,
+                                "END",
+                                "DONE"
+                            )
+                        )
+                        adapter = TeamAdapter(applicationContext, teamListShort, teamList.size)
+
+                        teammembrv.adapter = adapter
+                    }
+                    adapter.notifyDataSetChanged()
                 }
 
             })
@@ -106,87 +133,55 @@ class ProjectDashboard : AppCompatActivity() {
 
 
         // add only 3 elements
-        var teamList = ArrayList<TeamMemberModel>()
 
-        teamList.add(
-            TeamMemberModel(
-                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
-                1,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
-                2,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
-                3,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
-                4,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
-                5,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
-                6,
-                "Mia"
-            )
-        )
-        teamList.add(
-            TeamMemberModel(
-                "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg",
-                7,
-                "Mia"
-            )
-        )
-
-        var teamListShort = ArrayList<TeamMemberModel>()
-
-        if(teamList.size<=3){
-            adapter = TeamAdapter(
-                applicationContext,
-                teamList,
-                teamList.size
-            )
-            teammembrv.adapter = adapter
-        }
-
-        else{
-            while (teamListShort.size < 3){
-                var randomPerson = teamList.random()
-                teamListShort.add(randomPerson)
-            }
-            teamListShort.add(
-                TeamMemberModel(
-                    "END",
-                    -1,
-                    "DONE"
-                )
-            )
-            adapter = TeamAdapter(
-                applicationContext,
-                teamListShort,
-                teamList.size
-            )
-            teammembrv.adapter = adapter
-        }
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
+//                1,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
+//                2,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
+//                3,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
+//                4,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg",
+//                5,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg",
+//                6,
+//                "Mia"
+//            )
+//        )
+//        teamList.add(
+//            TeamMemberModel(
+//                "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg",
+//                7,
+//                "Mia"
+//            )
+//        )
     }
 }

@@ -179,6 +179,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
     }
 
     override fun onProjectClick(projectId: Int, projectName: String, projectAdmin: String) {
+        //Toast.makeText(applicationContext, projectId.toString(), Toast.LENGTH_LONG).show()
         val intent = Intent(applicationContext, ProjectDashboard::class.java)
         intent.putExtra("projId", projectId)
         intent.putExtra("projectName", projectName)
