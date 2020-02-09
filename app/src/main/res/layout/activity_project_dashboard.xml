@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"/>
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="400dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:elevation="1dp"
@@ -169,10 +169,12 @@
             android:layout_marginTop="10dp"
             android:layout_height="36dp"/>
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
+            android:layout_below="@id/tasksTabs"
             android:layout_height="match_parent"
-            android:layout_below="@id/tasksTabs"/>
+            android:id="@+id/mytasksRv"
+            />
 
     </RelativeLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton

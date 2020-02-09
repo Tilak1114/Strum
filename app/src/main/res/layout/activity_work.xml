@@ -107,7 +107,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/product_sans"
             android:layout_marginStart="40dp"
-            android:text="Projects ( 6 )"/>
+            android:text="Projects (  )"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/projectsRv"
             android:layout_width="match_parent"

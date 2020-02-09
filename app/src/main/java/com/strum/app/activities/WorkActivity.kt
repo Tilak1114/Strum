@@ -86,7 +86,9 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
                             project.projectAdmin))
                     }
                     adapter.notifyDataSetChanged()
+
                     Log.d("shakirasize", list.size.toString())
+                    projecttv.text = "Projects ( ${list.size} )"
                 }
             }
 
@@ -154,8 +156,6 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
 //                "Anshul"
 //            )
 //        )
-
-        projecttv.text = "Projects ( ${list.size} )"
     }
 
     private fun getUserName(): String {

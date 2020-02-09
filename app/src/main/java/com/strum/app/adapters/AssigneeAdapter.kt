@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.strum.app.R
 import com.strum.app.models.TeamMemberModel
+import com.strum.app.models.User
 import kotlinx.android.synthetic.main.assignee_lay.view.*
 
 
-class AssigneeAdapter(var context: Context, var teammemblist:List<TeamMemberModel>, var assigneeSelection: AssigneeSelection): RecyclerView.Adapter<AssigneeAdapter.MyHolder>() {
+class AssigneeAdapter(var context: Context, var teammemblist:List<User>, var assigneeSelection: AssigneeSelection): RecyclerView.Adapter<AssigneeAdapter.MyHolder>() {
     class MyHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     interface AssigneeSelection{
@@ -38,10 +39,10 @@ class AssigneeAdapter(var context: Context, var teammemblist:List<TeamMemberMode
 
         Picasso.with(context).load(teammemblist[position].url).into(holder.itemView.teamMembPicAssignee)
 
-        holder.itemView.assigneeName.text = teammemblist[position].userName
+        holder.itemView.assigneeName.text = teammemblist[position].username
 
         holder.itemView.setOnClickListener{
-            selUserId = teammemblist[position].userId
+            selUserId = teammemblist[position].userid
         }
 
         if(currentSel==position){
@@ -60,7 +61,7 @@ class AssigneeAdapter(var context: Context, var teammemblist:List<TeamMemberMode
             currentSel = position
             selUserId = position
             notifyDataSetChanged()
-            assigneeSelection.onSelected(teammemblist[currentSel].userId)
+            assigneeSelection.onSelected(teammemblist[currentSel].userid)
         }
     }
 

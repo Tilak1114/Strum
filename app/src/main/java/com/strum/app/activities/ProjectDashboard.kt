@@ -8,31 +8,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.strum.app.R
 import com.strum.app.adapters.TeamAdapter
+import com.strum.app.adapters.WorkTaskAdapter
 import com.strum.app.models.ProjectDetailModel
-import com.strum.app.models.TeamMemberModel
 import com.strum.app.models.User
+import com.strum.app.models.WorkTask
 import com.strum.app.network.BasicAuthInterceptor
 import com.strum.app.services.BackendApi
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_project_dashboard.*
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.activity_signup.usernameInput
-import kotlinx.android.synthetic.main.project_lay.*
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.io.IOException
 
-class ProjectDashboard : AppCompatActivity() {
+class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListener {
 
     var tabLayout: TabLayout? = null
     lateinit var adapter: TeamAdapter
+
+    lateinit var taskadapter: WorkTaskAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +39,27 @@ class ProjectDashboard : AppCompatActivity() {
         tabLayout!!.addTab(tabLayout!!.newTab().setText("My Tasks"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("All Tasks"))
 
+        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                if(p0?.position==1){
+                    // all tasks activity
+                }
+            }
+
+        })
 
         teammembrv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        mytasksRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+
+
 
         ProjectName.text = intent.getStringExtra("projectName")
         ProjectAdminDetails.text = intent.getStringExtra("projectAdmin")
@@ -54,6 +68,12 @@ class ProjectDashboard : AppCompatActivity() {
 
         var teamList = ArrayList<User>()
         var teamListShort = ArrayList<User>()
+
+        var myTasksList = ArrayList<WorkTask>()
+
+        taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this)
+
+        mytasksRv.adapter = taskadapter
 
         //get project details from id
 
@@ -85,7 +105,7 @@ class ProjectDashboard : AppCompatActivity() {
                     projectDesc.text = response.body()!!.description
                     // make team list
 
-                    Log.d("teamshakira", response.body()!!.teamList.toString())
+                    Log.d("tasksdash", response.body()!!.taskList.toString())
 
                     for(teammember in response.body()!!.teamList)
                     {
@@ -116,6 +136,14 @@ class ProjectDashboard : AppCompatActivity() {
                         teammembrv.adapter = adapter
                     }
                     adapter.notifyDataSetChanged()
+
+                    for(task in response.body()!!.taskList){
+                        myTasksList.add(WorkTask(task.taskname, task.deadline, task.taskid, task.priority, task.userid, task.status))
+                    }
+
+                    taskadapter.notifyDataSetChanged()
+
+                    mytasksRv.adapter = taskadapter
                 }
 
             })
@@ -127,6 +155,7 @@ class ProjectDashboard : AppCompatActivity() {
 
         projectFAB.setOnClickListener{
             var intent = Intent(applicationContext, CreateTask::class.java)
+            intent.putExtra("projId", projectId)
             startActivity(intent)
         }
         //get team memb list form db
@@ -183,5 +212,18 @@ class ProjectDashboard : AppCompatActivity() {
 //                "Mia"
 //            )
 //        )
+
+
+    }
+
+    override fun onStatusChanged(
+        status: String,
+        taskid: Int,
+        priority: String,
+        taskName: String,
+        date: String,
+        userid: Int
+    ) {
+
     }
 }
