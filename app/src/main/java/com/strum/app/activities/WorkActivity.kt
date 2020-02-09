@@ -41,6 +41,14 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         workPgBar.setProgress(prog)
         wprogressTv.text = prog.toString()+"%"
 
+        projectsRv.layoutManager = GridLayoutManager(this, 4)
+
+        var list = ArrayList<ProjectModel>()
+
+        var adapter =
+            ProjectAdapter(applicationContext, list, this)
+        projectsRv.adapter = adapter
+
         //fetch all projects
 
         val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
@@ -69,84 +77,85 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
                 Log.d("Projectres", response.code().toString())
                 if(response.isSuccessful){
                     Log.d("printRes", response.body().toString())
+                    for(project in response.body()!!.projects){
+                        Log.d("shakira", project.projFName)
+                        list.add(ProjectModel(
+                            project.projId,
+                            genereateProjectSName(project.projFName),
+                            project.projFName,
+                            project.projectAdmin))
+                    }
+                    adapter.notifyDataSetChanged()
+                    Log.d("shakirasize", list.size.toString())
                 }
             }
 
         })
 
-
         backwork.setOnClickListener{
             finish()
         }
 
-        projectsRv.layoutManager = GridLayoutManager(this, 4)
-
         //get all projects
 
-
-        var list = ArrayList<ProjectModel>()
-        list.add(
-            ProjectModel(
-                12,
-                "CP",
-                "Cyber Punk",
-                "Anshul"
-            )
-        )
-        list.add(
-            ProjectModel(
-                13,
-                "FB",
-                "Fill BinLaden",
-                "Kunal"
-            )
-        )
-        list.add(
-            ProjectModel(
-                14,
-                "PR",
-                "Practo Ray",
-                "Anshul"
-            )
-        )
-        list.add(
-            ProjectModel(
-                16,
-                "SG",
-                "Swiggy Gold",
-                "Kunal"
-            )
-        )
-        list.add(
-            ProjectModel(
-                15,
-                "IN",
-                "Invictus",
-                "Anshul"
-            )
-        )
-        list.add(
-            ProjectModel(
-                17,
-                "LB",
-                "Lambda bros",
-                "Kunal"
-            )
-        )
-        list.add(
-            ProjectModel(
-                18,
-                "SV",
-                "Smirnoff Vodka",
-                "Anshul"
-            )
-        )
+//        list.add(
+//            ProjectModel(
+//                12,
+//                "CP",
+//                "Cyber Punk",
+//                "Anshul"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                13,
+//                "FB",
+//                "Fill BinLaden",
+//                "Kunal"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                14,
+//                "PR",
+//                "Practo Ray",
+//                "Anshul"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                16,
+//                "SG",
+//                "Swiggy Gold",
+//                "Kunal"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                15,
+//                "IN",
+//                "Invictus",
+//                "Anshul"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                17,
+//                "LB",
+//                "Lambda bros",
+//                "Kunal"
+//            )
+//        )
+//        list.add(
+//            ProjectModel(
+//                18,
+//                "SV",
+//                "Smirnoff Vodka",
+//                "Anshul"
+//            )
+//        )
 
         projecttv.text = "Projects ( ${list.size} )"
-
-        var adapter =
-            ProjectAdapter(applicationContext, list, this)
-        projectsRv.adapter = adapter
     }
 
     private fun getUserName(): String {
@@ -157,8 +166,23 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         return ""
     }
 
-    override fun onProjectClick(projectId: Int) {
+    fun genereateProjectSName(projectname: String): String{
+        var strArray = projectname.split(" ")
+        var result: String
+        result = if(strArray.size>1){
+            strArray.toString().toCharArray()[0+1].toString()+strArray.toString().toCharArray()[1+1]
+        } else{
+            var singleWordArray = strArray.toString().toCharArray()
+            singleWordArray[0+1].toString()+singleWordArray[1+1]
+        }
+        return result.toUpperCase()
+    }
+
+    override fun onProjectClick(projectId: Int, projectName: String, projectAdmin: String) {
         val intent = Intent(applicationContext, ProjectDashboard::class.java)
+        intent.putExtra("projId", projectId)
+        intent.putExtra("projectName", projectName)
+        intent.putExtra("projectAdmin", projectAdmin)
         startActivity(intent)
     }
 }

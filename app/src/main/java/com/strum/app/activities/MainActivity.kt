@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         //TODO: Get request to get noOfPersonalTasks, WorkTasks, CompletedTasks etc
 
         mainmenu.setOnClickListener{
-            logout()
+            callLogoutAlert()
         }
 
         //get from sharedprefs
@@ -58,6 +59,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
 
         fname = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
         profileUrl = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userUrl", "")
+        userId = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getInt("userId", -1)
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15
@@ -146,6 +148,29 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         })
     }
 
+    private fun callLogoutAlert() {
+        val builder = AlertDialog.Builder(this, R.style.AlertDialogCustom)
+        //set title for alert dialog
+        builder.setTitle("Logout")
+        //set message for alert dialog
+        builder.setMessage("Are you sure you want to logout?")
+
+        //performing positive action
+        builder.setPositiveButton("Yes"){dialogInterface, which ->
+            logout()
+        }
+
+        //performing negative action
+        builder.setNegativeButton("No"){dialogInterface, which ->
+            dialogInterface.dismiss()
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(true)
+        alertDialog.show()
+    }
+
     override fun onItemClick(itemId: Int?, progress: Int?) {
         if(itemId==0){
             val intent = Intent(applicationContext, PersonalActivity::class.java)
@@ -163,6 +188,8 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
             val intent = Intent(applicationContext, WorkActivity::class.java)
             intent.putExtra("progress", progress)
             intent.putExtra("userId", userId)
+            intent.putExtra("userName", fname)
+            intent.putExtra("password", "12345")
             startActivity(intent)
         }
     }

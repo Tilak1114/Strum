@@ -32,4 +32,10 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/ubuntu_reg</item>
     </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+        <item name="android:fontFamily">@font/product_sans</item>
+        <item name="android:colorAccent">@color/workColor</item>
+    </style>
 </resources>
