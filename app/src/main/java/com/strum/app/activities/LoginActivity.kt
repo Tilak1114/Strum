@@ -76,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                                 MODE_PRIVATE)
                             var myEdit = sharedPreferences.edit()
                             myEdit.putString("userName", username)
-                            myEdit.putString("password", passInput.text.toString())
+                            myEdit.putString("pwd", passInput.text.toString())
                             myEdit.putInt("userId", userid)
                             myEdit.putString("userUrl", userUrl)
                             myEdit.putBoolean("hasLoggedIn", true)

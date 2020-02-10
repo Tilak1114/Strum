@@ -1,5 +1,6 @@
 package com.strum.app.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -38,6 +39,10 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         val prog = intent.getIntExtra("progress", 0)
         val userId = intent.getIntExtra("userId", -1)
 
+        val usr = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
+        val pwd = getSharedPreferences("MySharedPPref", Context.MODE_PRIVATE).getString("password", "")
+
+        Log.d("shrdword", usr+pwd)
         workPgBar.setProgress(prog)
         wprogressTv.text = prog.toString()+"%"
 
@@ -53,7 +58,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
 
         val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(
-                BasicAuthInterceptor("nitheesh",
+                BasicAuthInterceptor(usr!!,
                     "12345")
             ).build()
 

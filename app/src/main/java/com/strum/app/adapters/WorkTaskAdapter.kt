@@ -33,13 +33,13 @@ class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statu
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         when(tasks[position].priority){
-           "HIGH"->holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context,
+           "high"->holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context,
                R.color.prioHigh
            ))
-           "MED"->holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context,
+           "med"->holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context,
                R.color.prioMed
            ))
-           "LOW" -> holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
+           "low" -> holder.itemView.priorityBadgework.setBackgroundColor(ContextCompat.getColor(context, android.R.color.holo_blue_dark))
         }
 
         holder.itemView.workdeadline.text = tasks[position].deadline
@@ -68,7 +68,7 @@ class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statu
             holder.itemView.worktaskStatusCb.visibility = View.INVISIBLE
             holder.itemView.strikeViewwork.visibility = View.VISIBLE
         }
-        else if(tasks[position].status == "Pending"){
+        else if(tasks[position].status == "ongoing"){
             holder.itemView.worktaskStatusCb.isChecked = false
             holder.itemView.strikeViewwork.visibility = View.INVISIBLE
         }

@@ -207,7 +207,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         var myEdit = sharedPreferences.edit()
 
         myEdit.putString("userName", "")
-        myEdit.putString("password", "")
+        myEdit.putString("pwd", "")
         myEdit.putInt("userId", -1)
         myEdit.putString("userUrl", "")
         myEdit.putBoolean("hasLoggedIn", false)

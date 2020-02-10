@@ -1,5 +1,6 @@
 package com.strum.app.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,21 +40,8 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
         tabLayout!!.addTab(tabLayout!!.newTab().setText("My Tasks"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("All Tasks"))
 
-        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(p0: TabLayout.Tab?) {
+        val currentUserId = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getInt("userId", -1)
 
-            }
-
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                if(p0?.position==1){
-                    // all tasks activity
-                }
-            }
-
-        })
 
         teammembrv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -70,6 +58,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
         var teamListShort = ArrayList<User>()
 
         var myTasksList = ArrayList<WorkTask>()
+        var allTaskList = ArrayList<WorkTask>()
 
         taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this)
 
@@ -105,7 +94,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
                     projectDesc.text = response.body()!!.description
                     // make team list
 
-                    Log.d("tasksdash", response.body()!!.taskList.toString())
+
 
                     for(teammember in response.body()!!.teamList)
                     {
@@ -137,9 +126,25 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
                     }
                     adapter.notifyDataSetChanged()
 
+                    //get tasks
+                    Log.d("tasksdash", response.body()!!.taskList.toString())
+
                     for(task in response.body()!!.taskList){
-                        myTasksList.add(WorkTask(task.taskname, task.deadline, task.taskid, task.priority, task.userid, task.status))
+                        if(task.userid==1){
+                            myTasksList.add(WorkTask(task.taskname,
+                                task.deadline, task.taskid,
+                                task.priority, task.userid, task.status))
+                        }
+                        else{
+                            allTaskList.add(WorkTask(task.taskname,
+                                task.deadline, task.taskid,
+                                task.priority, task.userid, task.status))
+                        }
                     }
+
+                    allTaskList.addAll(myTasksList)
+
+                    Log.d("tasksnew", myTasksList.toString())
 
                     taskadapter.notifyDataSetChanged()
 
@@ -148,6 +153,27 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
 
             })
         }
+
+        tabLayout!!.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                if(p0?.position==0){
+                    taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this@ProjectDashboard)
+                    mytasksRv.adapter = taskadapter
+                }
+                else if(p0?.position==1){
+                    taskadapter = WorkTaskAdapter(applicationContext, allTaskList, this@ProjectDashboard)
+                    mytasksRv.adapter = taskadapter
+                }
+            }
+
+        })
 
         backprojDash.setOnClickListener{
             finish()
