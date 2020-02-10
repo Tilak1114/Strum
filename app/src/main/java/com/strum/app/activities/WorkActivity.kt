@@ -40,7 +40,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         val userId = intent.getIntExtra("userId", -1)
 
         val usr = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
-        val pwd = getSharedPreferences("MySharedPPref", Context.MODE_PRIVATE).getString("password", "")
+        val pwd = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("password", "")
 
         Log.d("shrdword", usr+pwd)
         workPgBar.setProgress(prog)

@@ -1,6 +1,7 @@
 package com.strum.app.activities
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -44,6 +45,11 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
 
         var assigneeList = ArrayList<User>()
 
+        val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+
+        val user = sharedPreferences.getString("userName", "")
+        val pwd = sharedPreferences.getString("password", "")
+
         var progressDialog = ProgressDialog(this)
         progressDialog.setCancelable(false)
         progressDialog.setMessage("Adding Task...")
@@ -64,8 +70,8 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
         if(projectId!=-1){
             val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
                 .addInterceptor(
-                    BasicAuthInterceptor("nitheesh",
-                        "12345")
+                    BasicAuthInterceptor(user!!,
+                        pwd!!)
                 ).build()
 
             val retrofit = Retrofit.Builder()
@@ -88,7 +94,7 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
                     if(response.isSuccessful){
                         Log.d("projectdetails", response.body()!!.description)
                         for(assignee in response.body()!!.teamList){
-                            assigneeList.add(User(assignee.userid, assignee.username, "https://s.abcnews.com/images/Politics/vladimir-putin-file-rt-jef-200124_hpMain_16x9_992.jpg"))
+                            assigneeList.add(User(assignee.userid, assignee.username, assignee.url))
                         }
                         adapter.notifyDataSetChanged()
                     }
@@ -155,7 +161,7 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
                 &&!prioritySel.isEmpty()&&assigneeId!=-1){
                 progressDialog.show()
                 val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(BasicAuthInterceptor("nitheesh", "12345")).build()
+                    .addInterceptor(BasicAuthInterceptor(user!!, pwd!!)).build()
 
                 val retrofit = Retrofit.Builder()
                     .baseUrl("https://strum-task-manager.herokuapp.com")

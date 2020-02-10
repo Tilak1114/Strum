@@ -40,8 +40,11 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
         tabLayout!!.addTab(tabLayout!!.newTab().setText("My Tasks"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("All Tasks"))
 
-        val currentUserId = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getInt("userId", -1)
+        val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
 
+        val currentUserId = sharedPreferences.getInt("userId", -1)
+        val username = sharedPreferences.getString("userName", "")
+        val pwd = sharedPreferences.getString("password", "")
 
         teammembrv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -60,17 +63,17 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
         var myTasksList = ArrayList<WorkTask>()
         var allTaskList = ArrayList<WorkTask>()
 
-        taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this)
+        taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this, currentUserId)
 
         mytasksRv.adapter = taskadapter
 
         //get project details from id
 
-        if(projectId!=-1){
+        if(projectId!=-1&&username!=""&&pwd!=""){
             val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
                 .addInterceptor(
-                    BasicAuthInterceptor("nitheesh",
-                        "12345")
+                    BasicAuthInterceptor(username!!,
+                        pwd!!)
                 ).build()
 
             val retrofit = Retrofit.Builder()
@@ -98,7 +101,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
 
                     for(teammember in response.body()!!.teamList)
                     {
-                        teamList.add(User(teammember.userid, teammember.username, "https://i.pinimg.com/originals/f6/ff/6f/f6ff6fe05f20905f24f2f4e72ae8891d.jpg"))
+                        teamList.add(User(teammember.userid, teammember.username, teammember.url))
                     }
 
                     if(teamList.size<=3){
@@ -130,7 +133,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
                     Log.d("tasksdash", response.body()!!.taskList.toString())
 
                     for(task in response.body()!!.taskList){
-                        if(task.userid==1){
+                        if(task.userid==currentUserId){
                             myTasksList.add(WorkTask(task.taskname,
                                 task.deadline, task.taskid,
                                 task.priority, task.userid, task.status))
@@ -164,11 +167,11 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
                 if(p0?.position==0){
-                    taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this@ProjectDashboard)
+                    taskadapter = WorkTaskAdapter(applicationContext, myTasksList, this@ProjectDashboard, currentUserId)
                     mytasksRv.adapter = taskadapter
                 }
                 else if(p0?.position==1){
-                    taskadapter = WorkTaskAdapter(applicationContext, allTaskList, this@ProjectDashboard)
+                    taskadapter = WorkTaskAdapter(applicationContext, allTaskList, this@ProjectDashboard, currentUserId)
                     mytasksRv.adapter = taskadapter
                 }
             }

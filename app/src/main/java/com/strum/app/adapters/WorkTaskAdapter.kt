@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.work_task_item_lay.view.*
 import java.text.DateFormat
 import java.util.*
 
-class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statusChangeListener: StatusChangeListener): RecyclerView.Adapter<WorkTaskAdapter.MyHolder>() {
+class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statusChangeListener: StatusChangeListener, var currentUserID: Int): RecyclerView.Adapter<WorkTaskAdapter.MyHolder>() {
 
     interface StatusChangeListener{
         fun onStatusChanged(status: String, taskid: Int, priority: String, taskName: String, date: String, userid: Int)
@@ -51,10 +51,10 @@ class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statu
 
         holder.itemView.worktaskStatusCb.setOnCheckedChangeListener{ buttonView, isChecked ->
             if(isChecked){
-                tasks[position].status = "Completed"
+                tasks[position].status = "completed"
                 //holder.itemView.strikeView.visibility = View.VISIBLE
                 //holder.itemView.taskStatusCb.visibility = View.INVISIBLE
-                statusChangeListener.onStatusChanged("Completed", tasks[position].taskid,
+                statusChangeListener.onStatusChanged("completed", tasks[position].taskid,
                     tasks[position].priority, tasks[position].taskname, tasks[position].deadline, tasks[position].userid)
             }
 //            else{
@@ -64,7 +64,12 @@ class WorkTaskAdapter(var context: Context, var tasks: List<WorkTask>, var statu
 //            }
         }
 
-        if(tasks[position].status == "Completed"){
+        if(tasks[position].userid!=currentUserID){
+            holder.itemView.worktaskStatusCb.visibility = View.INVISIBLE
+            holder.itemView.worktaskStatusCb.isEnabled = false
+        }
+
+        if(tasks[position].status == "completed"){
             holder.itemView.worktaskStatusCb.visibility = View.INVISIBLE
             holder.itemView.strikeViewwork.visibility = View.VISIBLE
         }
