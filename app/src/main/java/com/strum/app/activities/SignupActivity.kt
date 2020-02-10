@@ -40,7 +40,7 @@ class SignupActivity : AppCompatActivity() {
                 usernameInput.error = "Required"
             }
             if(passInputsnp.text.isEmpty()){
-                passInputsnp.error = "Password beko laude"
+                passInputsnp.error = "Password Required"
             }
             if(cpwdet.text.isEmpty()){
                 cpwdet.error = "Confirmation required"

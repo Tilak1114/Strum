@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
             if(!usernameInput.text.isEmpty()&&!passInput.text.isEmpty()){
                 progressDialog.show()
                 var pass = passInput.text.toString()
-                Toast.makeText(applicationContext, passInput.text.toString(), Toast.LENGTH_LONG).show()
                 val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
                     .addInterceptor(BasicAuthInterceptor(usernameInput.text.toString(),
                         passInput.text.toString())).build()
@@ -68,7 +67,6 @@ class LoginActivity : AppCompatActivity() {
                             var username = response.body()!!.username
                             var userid = response.body()!!.userid
                             var userUrl = response.body()!!.url
-
 
                             //save data into shared preferences
 

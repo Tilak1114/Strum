@@ -44,7 +44,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
 
         val currentUserId = sharedPreferences.getInt("userId", -1)
         val username = sharedPreferences.getString("userName", "")
-        val pwd = sharedPreferences.getString("password", "")
+        val pwd = sharedPreferences.getString("pwd", "")
 
         teammembrv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
@@ -96,8 +96,6 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
                     Log.d("projectdetails", response.body()!!.description)
                     projectDesc.text = response.body()!!.description
                     // make team list
-
-
 
                     for(teammember in response.body()!!.teamList)
                     {
@@ -184,6 +182,7 @@ class ProjectDashboard : AppCompatActivity(), WorkTaskAdapter.StatusChangeListen
 
         projectFAB.setOnClickListener{
             var intent = Intent(applicationContext, CreateTask::class.java)
+            Log.d("projId", projectId.toString())
             intent.putExtra("projId", projectId)
             startActivity(intent)
         }

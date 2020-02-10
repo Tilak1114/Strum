@@ -48,7 +48,7 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
         val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
 
         val user = sharedPreferences.getString("userName", "")
-        val pwd = sharedPreferences.getString("password", "")
+        val pwd = sharedPreferences.getString("pwd", "")
 
         var progressDialog = ProgressDialog(this)
         progressDialog.setCancelable(false)
@@ -92,7 +92,7 @@ class CreateTask : AppCompatActivity(), AssigneeAdapter.AssigneeSelection {
                     response: retrofit2.Response<ProjectDetailModel>
                 ) {
                     if(response.isSuccessful){
-                        Log.d("projectdetails", response.body()!!.description)
+                        Log.d("assignlist", response.body()!!.teamList.toString())
                         for(assignee in response.body()!!.teamList){
                             assigneeList.add(User(assignee.userid, assignee.username, assignee.url))
                         }

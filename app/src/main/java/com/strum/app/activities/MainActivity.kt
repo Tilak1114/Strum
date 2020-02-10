@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
     var fname : String? = null
     var userId: Int? = null
     var profileUrl: String? = null
+    var pwd: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,9 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
         fname = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
         profileUrl = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userUrl", "")
         userId = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getInt("userId", -1)
+        pwd = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("password", "")
+
+        Log.d("userurl", profileUrl.toString())
 
         var noOfPersonalTasks = 4
         var totalPersonalTasks = 15
@@ -189,16 +193,9 @@ class MainActivity : AppCompatActivity(), MainPageAdapter.ItemClickListener {
             intent.putExtra("progress", progress)
             intent.putExtra("userId", userId)
             intent.putExtra("userName", fname)
-            intent.putExtra("password", "12345")
+            intent.putExtra("password", pwd)
             startActivity(intent)
         }
-    }
-
-    fun getUserName(): String{
-        return "anshul"
-    }
-    fun getPassword(): String{
-        return "1234"
     }
 
     fun logout(){

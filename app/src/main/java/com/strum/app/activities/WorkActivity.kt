@@ -40,7 +40,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         val userId = intent.getIntExtra("userId", -1)
 
         val usr = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("userName", "")
-        val pwd = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("password", "")
+        val pwd = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).getString("pwd", "")
 
         Log.d("shrdword", usr+pwd)
         workPgBar.setProgress(prog)
@@ -59,7 +59,7 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
         val defaultHttpClient: OkHttpClient = OkHttpClient.Builder()
             .addInterceptor(
                 BasicAuthInterceptor(usr!!,
-                    "12345")
+                    pwd!!)
             ).build()
 
         val retrofit = Retrofit.Builder()
@@ -83,7 +83,6 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
                 if(response.isSuccessful){
                     Log.d("printRes", response.body().toString())
                     for(project in response.body()!!.projects){
-                        Log.d("shakira", project.projFName)
                         list.add(ProjectModel(
                             project.projId,
                             genereateProjectSName(project.projFName),
@@ -92,7 +91,6 @@ class WorkActivity : AppCompatActivity(), ProjectAdapter.ProjectClickListener {
                     }
                     adapter.notifyDataSetChanged()
 
-                    Log.d("shakirasize", list.size.toString())
                     projecttv.text = "Projects ( ${list.size} )"
                 }
             }
